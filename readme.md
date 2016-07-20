@@ -19,7 +19,7 @@
 
 ### Using either
 4. In the other window, enter `./chatclient [portnumber] [name of host where chatserve is]          
-  *If there are permission issues enter `./chatclient chmod 777` and try again*
+   *If there are permission issues enter `./chatclient chmod 777` and try again*
 
 5. You will be promted for your name in the chat client window. Enter it.
 
