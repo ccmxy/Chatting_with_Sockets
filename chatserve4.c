@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 int main(int argc, char *argv[]) {
-	int port = atoi(argv[1]); 
+	int port = htons(atoi(argv[1])); 
 
 	int server_socket, client_socket;
 	//create server socket:
@@ -23,33 +23,24 @@ int main(int argc, char *argv[]) {
 	setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes));
 	setsockopt(client_socket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes));
 
-
 	//Bind socket to specified IP and port
 	bind(server_socket, (struct sockaddr*) &server_address, sizeof(server_address));
 
 	listen(server_socket, 5);
-
 	while(1){
-	char server_message[500], client_response[500], handle_buffer[500] = "What is your name?";	
+	char server_message[256], client_response[500], handle_buffer[256] = "What is your name?";	
 	client_socket = accept(server_socket, NULL, NULL);
 	//Send prompt for handle in handle_buffer:	
 	send(client_socket, handle_buffer, sizeof(server_message), 0);
 	//Receive handle back into handle_buffer:
 	recv(client_socket, &handle_buffer, sizeof(handle_buffer), 0);
-	//char return_name[255] = "Nice name"; 
-	//send(client_socket, return_name, sizeof(return_name), 0);
-	//printf("Message sent to new chatter %s: Nice Name\n", handle_buffer);
-	strtok(handle_buffer, "\n"); //Remove newline
-	//char client_name[500] = handle_buffer;
+	char return_name[255] = "Nice name"; 
+	send(client_socket, return_name, sizeof(return_name), 0);
+	printf("Message sent to new chatter %s: Nice Name\n", handle_buffer);
+
 	int quit = 0;
 	while(quit == 0){
-		printf("%s>  %s ", handle_buffer, client_response); //Print client response
-                if(strcmp(client_response, "\\quit") == 0){
-			printf("\nClient has closed the connection");
-			break;
-		}
-		printf("\n You> "); //Prompt
-		fflush(stdout);
+		printf(" You> "); //Prompt
                 fgets(server_message, 500, stdin); //Get server message from stdin
 		strtok(server_message, "\n");
 		send(client_socket, server_message, sizeof(server_message), 0); //Send it
@@ -59,11 +50,21 @@ int main(int argc, char *argv[]) {
 			quit = 1;
 			break;
 		}
-		printf("\nWaiting for response from %s...\n", handle_buffer);
-                recv(client_socket, &client_response, sizeof(client_response), 0); //Receive client response	
+
+		printf("Waiting for response from %s...\n", handle_buffer);
+                recv(client_socket, &client_response, sizeof(client_response), 0); //Receive client response
+                printf("%s>  %s\n", handle_buffer, client_response); //Print client response
+/*		printf(" You> "); //Prompt
+                fgets(server_message, 500, stdin); //Get server message from stdin
+		strtok(server_message, "\n");
+		send(client_socket, server_message, sizeof(server_message), 0); //Send it
+		if(strcmp(server_message, "\\quit") == 0){
+			printf("Closing connection to %s", handle_buffer);
+			close(client_socket);
+			quit = 1;
+		}*/
 
         }
-	printf("Listening for connection....");
 
 }
 	return 0;
