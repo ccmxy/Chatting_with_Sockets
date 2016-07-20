@@ -41,6 +41,7 @@ int main(int argc, char *argv[]) {
 	//printf("Message sent to new chatter %s: Nice Name\n", handle_buffer);
 	strtok(handle_buffer, "\n"); //Remove newline
 	//char client_name[500] = handle_buffer;
+	//client_response = "Name Returned";
 	int quit = 0;
 	while(quit == 0){
 		printf("%s>  %s ", handle_buffer, client_response); //Print client response
@@ -49,7 +50,7 @@ int main(int argc, char *argv[]) {
 			break;
 		}
 		printf("\n You> "); //Prompt
-		fflush(stdout);
+		//fflush(stdout);
                 fgets(server_message, 500, stdin); //Get server message from stdin
 		strtok(server_message, "\n");
 		send(client_socket, server_message, sizeof(server_message), 0); //Send it
