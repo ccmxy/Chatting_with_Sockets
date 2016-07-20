@@ -5,8 +5,8 @@
 
 1. Open two different linux command line windows in this directory
 
-2. Enter `./makefile` into command line
-  +If there are permissions issues than first enter `./makefile chmod 777` and try again
+2. Enter `./makefile` into command line      
+  *If there are permissions issues than first enter `./makefile chmod 777` and try again*
 
 ### Using python server: 
 
@@ -14,12 +14,12 @@
 
 ### Using C server (BETA):
 
-3. In one of the windows enter `./chatserve [portnumber]`
-  +If there are permission issues enter `./chatserve chmod 777` and try again
+3. In one of the windows enter `./chatserve [portnumber]`          
+  *If there are permission issues enter `./chatserve chmod 777` and try again*
 
 ### Using either
-4. In the other window, enter `./chatclient [portnumber] [name of host where chatserve is]
-  +If there are permission issues enter `./chatclient chmod 777` and try again
+4. In the other window, enter `./chatclient [portnumber] [name of host where chatserve is]          
+  *If there are permission issues enter `./chatclient chmod 777` and try again*
 
 5. You will be promted for your name in the chat client window. Enter it.
 
